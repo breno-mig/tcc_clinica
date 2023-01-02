@@ -1,0 +1,439 @@
+
+.calendar-content{
+    width: 286px;
+    display: inline-block;
+}
+
+.appoiment-container{
+    width: 500px;
+    border: 1px solid #ccc;
+    height: auto;
+    display: inline-block;
+}
+
+.calendar-container{
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    font-size: 1.2em;
+    gap: 1px;
+    text-align: center;
+    width: 286px;
+    background-color: #efefef;
+    box-shadow: 0px 0px 15px #3b3b3b2d;
+}
+.grid-item{
+    /*border: 1px solid #ccc;*/
+    text-align: center;
+    line-height: 40px;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+    background-color: transparent;
+    border: 0;
+    font-size: 1em;
+    cursor: pointer;
+}
+.calendar-header{
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-template-columns: repeat(7, 40px);
+    display: grid;
+}
+.grid-item_month{
+    grid-column-start: 2;
+    grid-column-end: 7;
+    text-align: center;
+    padding: 5px 0px;
+    color: #eee;
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 1.25em !important;
+}
+.arrows_container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    line-height: 40px;
+    flex-wrap: wrap;
+}
+.grid-item_arrows{
+    text-align: center;
+    padding: 5px 0px;
+    color: #eee;
+    justify-content: center;
+    align-content: center;
+    line-height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.25em !important;
+}
+.grid-item_arrows button{
+    background-color: transparent;
+    border: 0;
+    color: #eee;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+.calendar-container_weekdays{
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    font-size: 1.3em;
+    gap: 1px;
+    background-color: #404040;
+    width: 286px;
+    /*box-shadow: 0px 0px 15px rgba(59, 59, 59, 0.295);*/
+}
+.grid-item_weekdays{
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    color: #eee;
+    background-color: #505050;
+}
+.Monday, .Tuesday, .Wednesday, .Thursday, .Friday{
+    background-color: #ececec;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.Sunday, .Saturday{
+    background-color: #ffc4c4;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.appoiment{
+    border: 1px solid #999999;
+    border-radius: 50%;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.today{
+    background-color: #81d3ff;
+    border-radius: 50%;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.form-calendar{
+    display: contents;
+}
+
+
+.search-box{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.search-bar{
+    width: 40vw;
+    height: 3vh;
+    border-radius: 3vh;
+    font-size: 1em;
+    transition: 0.15s;
+    padding: 1em;
+}
+
+
+
+
+
+.form-login{
+    display: flex;
+    height: 230px;
+    width: 180px;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+
+
+
+
+.form-login span{
+    font-weight: bold;
+    font-size: 1.3em;
+    background: linear-gradient(90deg, #04a0cf, #095668);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    align-items: center;
+}
+.form-login h1{
+    font-size: 2.4em;
+}
+
+.main-login{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8F0F2;
+}
+.card-login h1{
+align-self: center;
+}
+.card-login{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 60px;
+    border-radius: 20px;
+    color: #053742;
+    background-color: white;
+}
+
+
+.input-login{
+    width: 200px;
+    height: 3.3vh;
+    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    background-color: #A2DBFA;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.2);
+    outline: none;
+    box-sizing: border-box;
+    margin: 8px 0px;
+}
+
+.textfield > label{
+    color: #053742;
+    margin-bottom: 2px;
+    font-size: 1em;
+}
+
+.btn-login{
+    margin-top:1.5vh;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background-color: #095668;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: white;
+    transition: 200ms;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    display: block;
+}
+.btn-login:hover{
+    background-color: #053742;
+}
+
+
+
+
+
+
+
+.main-cadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-cadastro{
+    margin-top: 5vh;
+    width: 75vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 30px 35px;
+    border-radius: 20px;
+    color: #053742;
+    background-color: white; 
+}
+
+.titulo{
+    text-align: left;
+}
+
+h1{
+    text-align: left;
+}
+
+.textfield{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    display: inline-block;
+    padding: 0px 50px;
+    font-size: 0.8em;
+}
+
+.textfield > input, .textfield > select{
+    width: 15vw;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #A2DBFA;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+    box-sizing: border-box;
+    margin: 10px 0px;
+}
+
+
+
+.textfield > select:hover{
+    background-color: #39A2DB;
+}
+
+.textfield > label{
+    color: #053742;
+    margin-bottom: 2px;
+    width: 8vw;
+}
+
+.btn-cadastro{
+    width: 15vw;
+    padding: 16px 0px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background-color: #39A2DB;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: white;
+}
+.btn-cadastro:hover{
+    color: #053742;
+    background-color: #A2DBFA;
+}
+
+.position-btn{
+    width: 100%;
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#opcoes div{
+    display: none;
+}
+
+
+
+
+
+
+.new-user{
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #39A2DB;
+    outline: 0;
+    background-color: #39A2DB;
+    color: #fff;
+    transition: 200ms;
+}
+
+.new-user:hover{
+    border: 1px solid #053742;
+    background-color: transparent;
+    color: #053742;
+    transition: 200ms;
+}
+
+.card-users{
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 30px;
+    border-radius: 20px;
+    color: #053742;
+    background-color: white; 
+}
+
+.listed-user_list{
+    margin-top: 30px;
+}
+
+.listed-user{
+    padding: 10px;
+    text-transform: capitalize;
+    font-size: 0.9em;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 50px;
+    line-height: 15px;
+    display: inline-block;
+}
+
+.listed-user_list li:first-child.listed-user{
+    border-top: 1px solid #ccc;
+}
+
+.listed-user_div{
+    line-height: 30px;
+}
+
+.btn-alteracao{
+    padding: 8px;
+    border: none;
+    margin:0;
+    border-radius: 8px;
+    outline: none;
+    background-color: #39A2DB;
+    color: white;
+    float: right;
+    display: inline;
+    overflow: hidden;
+    transition: 200ms;
+}
+.btn-alteracao:hover{
+    background-color: #005d8f;
+    transition: 200ms;
+}
+
+.position-btn{
+    float: right;
+}
+
+
+.listed-administrator{
+    background-color: #00a2c7aa;
+    border-radius: 8px;
+    padding: 5px;
+}
+.listed-psychologist{
+    background-color: #889affaa;
+    border-radius: 8px;
+    padding: 5px;
+}
+.listed-secretary{
+    background-color: #d579eeaa;
+    border-radius: 8px;
+    padding: 5px;
+}
+.listed-pacient{
+    background-color: #17c484aa;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+
+
+
+
+
