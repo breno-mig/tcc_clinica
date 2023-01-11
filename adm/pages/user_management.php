@@ -19,26 +19,16 @@
         </form>
         <div class="filter">
             <h3>Filtrar:</h3>
-            <form action="" method="POST">
-                <button class="filter-users" type="submit">Todos</button>
-                <input type="hidden" name="title" value="">
-            </form>
-            <form action="" method="POST">
-                <button class="filter-users" type="submit">Administradores</button>
-                <input type="hidden" name="title" value="adm">
-            </form>
-            <form action="" method="POST">
-                <button class="filter-users" type="submit">Psicologos</button>
-                <input type="hidden" name="title" value="psi">
-            </form>
-            <form action="" method="POST">
-                <button class="filter-users" type="submit">Secretarios</button>
-                <input type="hidden" name="title" value="secre">
-            </form>
-            <form action="" method="POST">
-                <button class="filter-users" type="submit">Pacientes</button>
-                <input type="hidden" name="title" value="paci">
-            </form>
+            <form id="filter-users" action="" method="POST"></form>
+            <button form="filter-users" name="title" value="" class="filter-users" type="submit">Todos</button>
+            <button form="filter-users" name="title" value="adm" class="filter-users" type="submit">Administradores</button>
+            <button form="filter-users" name="title" value="psi" class="filter-users" type="submit">Psicologos</button>
+            <button form="filter-users" name="title" value="secre" class="filter-users" type="submit">Secretarios</button>
+            <button form="filter-users" name="title" value="paci" class="filter-users" type="submit">Pacientes</button>
+            <!--
+                Criar slider para Somente ativos | Somente desativados | Todos
+                Mais recentes ou mais antigos
+            -->
         </div>
         <ul class="listed-user_list">
         <?php

@@ -60,7 +60,7 @@ body{
   display: flex;
   justify-content: left;
 }
-.wrapper .sidebar ul li:first-child .item{
+.wrapper .sidebar ul li .item:first-child{
   border-style: solid hidden solid hidden;
 }
 .wrapper .sidebar ul li a .icon{

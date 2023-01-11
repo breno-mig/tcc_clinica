@@ -1,12 +1,13 @@
 <?php
 
-class Users{
+abstract class Users{
     private $id_user;
     private $password;
     private $picture;
     private $title;
     private $username;
     private $sex;
+    private $is_active;
 
     /**
      * Get the value of id_user
@@ -124,6 +125,26 @@ class Users{
     public function setSex($sex)
     {
         $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of is_active
+     */ 
+    public function getIs_active()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Set the value of is_active
+     *
+     * @return  self
+     */ 
+    public function setIs_active($is_active)
+    {
+        $this->is_active = $is_active;
 
         return $this;
     }

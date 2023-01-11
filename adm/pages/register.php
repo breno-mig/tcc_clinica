@@ -1,5 +1,5 @@
 <div class="main-register">
-    <h2>Novo Usuário</h2>
+    <h2>Cadastro de novo Usuário</h2>
     <hr>
     <form action="" method="POST">
         <div>

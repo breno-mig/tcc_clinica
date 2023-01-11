@@ -98,15 +98,13 @@
             <p><?php echo $title; ?></p>
         </div>
         <ul id="side-nav">
+            <form id="page" action="home.php" method="get"></form>
             <?php
                 $options = $users_controller->get_options($_SESSION['title']);
                 echo $options;
             ?>
             <li>
-                <form id="config" action="home.php" method="get">
-                        <input type="submit" class="item" value="Sair">
-                        <input type="hidden" name="page" value="logout">
-                </form>
+                <button type="submit" name="page" class="item" form="page" value="logout">Sair</button>
             </li>
         </ul>
     </div>

@@ -5,21 +5,38 @@ class Users_controller{
 
     private $conn;
     public function __construct($conn){
-
         $this->conn = $conn;
     }
 
-    public function check_login($username, $password){
-        $query = "SELECT id_user FROM users WHERE username=:username AND password=:password;";
+    public function check_login($username, $password): bool
+    {
+        $clean_username = preg_replace('/[^[:alnum:]/', '', $username);
+        $clean_password = preg_replace('/[^[:alnum:]/', '', $password);
+        $query = "SELECT id_user FROM users WHERE username=:username AND password=:password AND is_active=1;";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['username'=>$username, 'password'=>$password]);
-        $row = $stmt->fetchColumn();
-        return $row;
+        $stmt->execute(['username'=>$clean_username, 'password'=>$clean_password]);
+        return $stmt->rowCount() !== 0;
     }
 
-    public function pick_register($id){
-        $id = preg_replace('/[^[:alnum:]_]/', '',$id);
-        $query = "SELECT * FROM users WHERE id_user=:id;";
+    /*
+    php password length
+
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number    = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
+
+    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+    }else{
+        echo 'Strong password.';
+    }
+    */
+    public function pick_register($username, $password){
+        $id = preg_replace('/[0-9]/', '',$id);
+        #$query = "SELECT id_user, username, title FROM users WHERE username=:username AND password=sha1(:password) AND is_active=1;";
+        #"SELECT id_user, username, title, picture, sex, is_active, profiles.title->>'f' as profile_title FROM users WHERE username=:username AND password=:password AND is_active=1;"
+        $query = "SELECT id_user, username, title, picture, sex, is_active FROM users WHERE username=:username AND password=:password AND is_active=1;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['id'=>$id]);
         $result = [];
@@ -32,10 +49,10 @@ class Users_controller{
         $user = new Users();
         $user->setId_user($result->id_user)
              ->setUsername($result->username)
-             ->setPassword($result->password)
              ->setTitle($result->title)
              ->setPicture($result->picture)
-             ->setSex($result->sex);
+             ->setSex($result->sex)
+             ->setIs_active($result->is_active);
         return $user;
     }
 
@@ -59,7 +76,7 @@ class Users_controller{
     }
 
     public function insert_user($new_user){
-        $query = "INSERT INTO users (username, password, title, sex) VALUES (:username, :password, :title, :sex);";
+        $query = "INSERT INTO users (username, password, title, sex, is_active) VALUES (:username, :password, :title, :sex, 1);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
             'username'=>$new_user['username'],
@@ -115,79 +132,49 @@ class Users_controller{
             case 'adm':
                 $options = '
                     <li>
-                        <form id="user_management" action="home.php" method="get">
-                                <input type="submit" class="item" value="Usuarios">
-                                <input type="hidden" name="page" value="user_management">
-                        </form>
+                        <button type="submit" name="page" class="item" form="page" value="user_management">Usuarios</button>
                     </li>
                     <li>
-                        <form id="config" action="home.php" method="get">
-                                <input type="submit" class="item" value="Configurações">
-                                <input type="hidden" name="page" value="config-administrator">
-                        </form>
+                        <button type="submit" name="page" class="item" form="page" value="config-administrator">Configurações</button>
                     </li>
                 ';
-                break;
-                case 'psi':
-                    $options ='
-                        <li>
-                            <form id="pacient_management" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Pacientes">
-                                    <input type="hidden" name="page" value="pacient_management">
-                            </form>
-                        </li>
-                        <li>
-                            <form id="calendar" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Calendario">
-                                    <input type="hidden" name="page" value="calendar">
-                            </form>
-                        </li>
-                        <li>
-                            <form id="config" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Configurações">
-                                    <input type="hidden" name="page" value="config-psychologist">
-                            </form>
-                        </li>
-                    ';
-                break;
-                case 'secre':
-                    $options ='
-                        <li>
-                            <form id="pacient_management" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Pacientes">
-                                    <input type="hidden" name="page" value="pacient_management">
-                            </form>
-                        </li>
-                        <li>
-                            <form id="calendar" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Calendario">
-                                    <input type="hidden" name="page" value="calendar">
-                            </form>
-                        </li>
-                        <li>
-                            <form id="config" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Configurações">
-                                    <input type="hidden" name="page" value="config-secretary">
-                            </form>
-                        </li>
-                    ';
-                break;
-                case 'paci':
-                    $options ='
-                        <li>
-                            <form id="calendar" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Calendario">
-                                    <input type="hidden" name="page" value="calendar">
-                            </form>
-                        </li>
-                        <li>
-                            <form id="config" action="home.php" method="get">
-                                    <input type="submit" class="item" value="Configurações">
-                                    <input type="hidden" name="page" value="config-pacient">
-                            </form>
-                        </li>
-                    ';
-                break;
+            break;
+            case 'psi':
+                $options ='
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="pacient_management">Pacientes</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="calendar">Agenda</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="config-psychologist">Configurações</button>
+                    </li>
+                ';
+            break;
+            case 'secre':
+                $options ='
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="pacient_management">Pacientes</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="calendar">Agenda</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="config-secretary">Configurações</button>
+                    </li>
+                ';
+            break;
+            case 'paci':
+                $options ='
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="calendar">Agendas</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="page" class="item" form="page" value="config-pacient">Configurações</button>
+                    </li>
+                ';
+            break;
         }
         return $options;
     }
@@ -198,54 +185,7 @@ class Users_controller{
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $users = $stmt->fetchAll();
-            foreach ($users as $users) {
-                switch ($users["title"]) {
-                    case 'adm':
-                        $style = "listed-administrator";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Administrador";
-                        } else {
-                            $title_ = "Administradora";
-                        }
-                        $config_page = "config-administrator";
-                        break;
-                    case 'psi':
-                        $style = "listed-psychologist";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Psicologo";
-                        } else {
-                            $title_ = "Psicologa";
-                        }
-                        $config_page = "config-psychologist";
-                        break;
-                    case 'secre':
-                        $style = "listed-secretary";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Secretario";
-                        } else {
-                            $title_ = "Secretaria";
-                        }
-                        $config_page = "config-secretary";
-                        break;
-                    case 'paci':
-                        $style = "listed-pacient";
-                        $title_ = "Paciente";
-                        $config_page = "config-pacient";
-                        break;
-                }
-                echo'
-                    <li class="listed-user">
-                        <form action="home.php?page='.$config_page.'&id_user='.$users["id_user"].'" method="POST">
-                            <div class="listed-user_div">
-                                <span>'.$users["id_user"].' - 
-                                <span>'.$users["username"].'
-                                <span class="'.$style.'">'.$title_.'</span></span></span>
-                                <input type="submit" value="Editar" name="edit" class="btn-alteracao">
-                            </div>
-                        </form>
-                    </li>
-                ';
-            }#<input type="hidden" name="profile-picture" value="'.$users["picture"].'">
+            $result = $this->show_listed_users($users);
         }else{
             echo"
                 <script language='javascript' type='text/javascript'>
@@ -257,59 +197,13 @@ class Users_controller{
     }
 
     public function filter_users($user_title, $filtered_title){
-        if ($user_title == 'adm') {   
+        $clean_filtered_title = preg_replace('/[^[:alnum:] a-zÀ-ú]/', '', $filtered_title);
+        if ($user_title == 'adm' || $user_title == 'psi') {   
             $query = "SELECT * FROM users WHERE title=:filtered_title";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute(['filtered_title'=>$filtered_title]);
+            $stmt->execute(['filtered_title'=>$clean_filtered_title]);
             $users = $stmt->fetchAll();
-            foreach ($users as $users) {
-                switch ($users["title"]) {
-                    case 'adm':
-                        $style = "listed-administrator";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Administrador";
-                        } else {
-                            $title_ = "Administradora";
-                        }
-                        $config_page = "config-administrator";
-                        break;
-                    case 'psi':
-                        $style = "listed-psychologist";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Psicologo";
-                        } else {
-                            $title_ = "Psicologa";
-                        }
-                        $config_page = "config-psychologist";
-                        break;
-                    case 'secre':
-                        $style = "listed-secretary";
-                        if ($users["sex"] == "m") {
-                            $title_ = "Secretario";
-                        } else {
-                            $title_ = "Secretaria";
-                        }
-                        $config_page = "config-secretary";
-                        break;
-                    case 'paci':
-                        $style = "listed-pacient";
-                        $title_ = "Paciente";
-                        $config_page = "config-pacient";
-                        break;
-                }
-                echo'
-                    <li class="listed-user">
-                        <form action="home.php?page='.$config_page.'&id_user='.$users["id_user"].'" method="POST">
-                            <div class="listed-user_div">
-                                <span>'.$users["id_user"].' - 
-                                <span>'.$users["username"].'
-                                <span class="'.$style.'">'.$title_.'</span></span></span>
-                                <input type="submit" value="Editar" name="edit" class="btn-alteracao">
-                            </div>
-                        </form>
-                    </li>
-                ';
-            }#<input type="hidden" name="profile-picture" value="'.$users["picture"].'">
+            $result = $this->show_listed_users($users);
         }else{
             echo"
                 <script language='javascript' type='text/javascript'>
@@ -317,6 +211,75 @@ class Users_controller{
                     window.location.href='home.php';
                 </script>
             ";
+        }
+    }
+
+    public function show_listed_users($users){
+        foreach ($users as $users) {
+            if ($users['is_active'] == 0) {
+                $is_deactivated = "deactivated-user";
+            }else{
+                $is_deactivated ="";
+            }
+            switch ($users["title"]) {
+                case 'adm':
+                    $style = "listed-administrator";
+                    if ($users["sex"] == "m") {
+                        $title_ = "Administrador";
+                    } else {
+                        $title_ = "Administradora";
+                    }
+                    $config_page = "config-administrator&id_user=".$users["id_user"];
+                break;
+                case 'psi':
+                    $style = "listed-psychologist";
+                    if ($users["sex"] == "m") {
+                        $title_ = "Psicologo";
+                    } else {
+                        $title_ = "Psicologa";
+                    }
+                    $config_page = "config-psychologist&id_user=".$users["id_user"];
+                break;
+                case 'secre':
+                    $style = "listed-secretary";
+                    if ($users["sex"] == "m") {
+                        $title_ = "Secretario";
+                    } else {
+                        $title_ = "Secretaria";
+                    }
+                    $config_page = "config-secretary&id_user=".$users["id_user"];
+                break;
+                case 'paci':
+                    $style = "listed-pacient";
+                    $title_ = "Paciente";
+                    $config_page = "config-pacient&id_user=".$users["id_user"];
+                break;
+            }
+            echo'
+                <li class="listed-user '.$is_deactivated.'">
+                    <form id="users_actions" action="home.php" method="GET" enctype="text/plain">
+                    <div class="listed-user_div">
+                        <span>'.$users["id_user"].' - 
+                        <span>'.$users["username"].'
+                        <span class="'.$style.'">'.$title_.'</span></span></span>
+            ';
+            
+            if ($_SESSION['title'] == "psi" || $_SESSION['title'] == "secre") {
+                echo'
+                    <input class="btn-alteracao" name="page" type="submit" value="Anotações">
+                ';
+            }
+
+            echo'
+                        <input class="btn-alteracao" name="page" type="submit" value="Editar">
+                    </div>
+                    </form>
+                </li>
+            ';
+            /*
+                <button type="submit" class="btn-alteracao" form="users_actions" name="page" value="'.$config_page.'">Editar</button>
+                <button type="submit" name="page" class="btn-delete" form="users_actions" value="delete-user='.$users["id_user"].'" style="float:right;margin-right:5px;">Excluir</button>
+            */
         }
     }
 }

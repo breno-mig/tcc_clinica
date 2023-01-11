@@ -37,7 +37,7 @@
                     $username = $_POST['username'];
                     $id_user = $users_controller->check_login($username,$password);
                     
-                    if ($id_user <> null) {
+                    if ($id_user) {
                         $current_user = $users_controller->pick_register($id_user);
                         foreach ($current_user as $user) {
                             $name = $user->getUsername();
