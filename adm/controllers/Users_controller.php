@@ -4,18 +4,31 @@ require_once("conn.php");
 class Users_controller{
 
     private $conn;
-    public function __construct($conn){
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function check_login($username, $password): bool
+    public function clear_string($string)
     {
-        $clean_username = preg_replace('/[^[:alnum:]/', '', $username);
-        $clean_password = preg_replace('/[^[:alnum:]/', '', $password);
+        $clean_string = preg_replace('/[^[:alnum:] a-zÀ-ú]/', '', $string);
+        return $clean_string;
+    }
+
+    public function clear_int($int)
+    {
+        $clean_int = preg_replace('/[[0-9]]/', '', $int);
+        return $clean_int;
+    }
+
+    public function check_login($username, $password)
+    {
+        $clean_username = $this->clear_string($username);
+        $clean_password = $this->clear_string($password);
         $query = "SELECT id_user FROM users WHERE username=:username AND password=:password AND is_active=1;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['username'=>$clean_username, 'password'=>$clean_password]);
-        return $stmt->rowCount() !== 0;
+        return $stmt->fetchColumn();
     }
 
     /*
@@ -32,13 +45,14 @@ class Users_controller{
         echo 'Strong password.';
     }
     */
-    public function pick_register($username, $password){
-        $id = preg_replace('/[0-9]/', '',$id);
+    public function pick_register($id)
+    {
+        $clean_id = $this->clear_int($id);
         #$query = "SELECT id_user, username, title FROM users WHERE username=:username AND password=sha1(:password) AND is_active=1;";
         #"SELECT id_user, username, title, picture, sex, is_active, profiles.title->>'f' as profile_title FROM users WHERE username=:username AND password=:password AND is_active=1;"
-        $query = "SELECT id_user, username, title, picture, sex, is_active FROM users WHERE username=:username AND password=:password AND is_active=1;";
+        $query = "SELECT id_user, username, title, picture, sex, is_active FROM users WHERE id_user=:id;";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['id'=>$id]);
+        $stmt->execute(['id'=>$clean_id]);
         $result = [];
         $row = $stmt->fetchObject();
         $result[] = $this->fill_user($row);
