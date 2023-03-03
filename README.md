@@ -1,2 +1,5 @@
 # tcc_clinica
- Projeto que estou desenvolvendo para meu TCC, utilizando conceitos de Clean Architecture, DevSecOps e TDD
+ Projeto que estou desenvolvendo para meu TCC
+ 
+public_html: localhost:80 | localhost:443
+PhpMyAdmin: localhost:8080
