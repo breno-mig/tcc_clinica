@@ -1,9 +1,9 @@
 <?php
 
-namespace User\UseCase;
-interface UserInterface
+namespace User\Profile;
+interface ProfileInterface
 {
-    public function __construct(UserInterface $repository);
+    public function __construct(ProfileInterface $repository);
 
     public function select($query);
 

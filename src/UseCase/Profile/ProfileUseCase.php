@@ -4,25 +4,27 @@ namespace User\Profile;
 
 use Entity\Profile\Profile;
 
-class ProfileUseCase
+class ProfileUseCase implements ProfileInterface
 {
-    public function __construct(private Connection $conn){}
+    private ProfileInterface $repository;
 
-    public function fill_profile($profile_to_fill):object
+    public function __construct(ProfileInterface $repository)
     {
-        $profile = new Profile();
-
-        $profile->setIdProfile($profile_to_fill->id_profile)
-                ->setName($profile_to_fill->name)
-                ->setExtra($profile_to_fill->extra)
-                ->setPermissions($profile_to_fill->permissions)
-        ;
-        return $profile;
+        $this->repository = $repository;
     }
 
-    public function get_permission($profile){
-        $profile_permission = json_decode($profile['permission']);
+    public function select($query)
+    {
+        return $this->repository->select($query);
     }
 
+    public function insert($query)
+    {
+        return $this->repository->insert($query);
+    }
 
+    public function delete($query)
+    {
+        return $this->repository->delete($query);
+    }
 }

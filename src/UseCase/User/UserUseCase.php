@@ -17,4 +17,14 @@ class UserUseCase implements UserInterface
     {
         return $this->repository->select($query);
     }
+
+    public function insert($query)
+    {
+        return $this->repository->insert($query);
+    }
+
+    public function delete($query)
+    {
+        return $this->repository->delete($query);
+    }
 }
