@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Profile;
+namespace UseCase\Profile;
 interface ProfileInterface
 {
     public function __construct(ProfileInterface $repository);

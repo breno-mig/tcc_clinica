@@ -1,17 +1,15 @@
 <?php
 
-namespace UseCase\User;
+namespace UseCase\Appoiment;
 
-use Connection\Connection;
-
-class UserUseCase implements UserInterface
+class AppoimentUseCase implements AppoimentInterface
 {
-    private UserInterface $repository;
+    private AppoimentInterface $repository;
 
-	public function __construct(UserInterface $repository)
-	{
-		$this->repository = $repository;
-	}
+    public function __construct(AppoimentInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function select($query)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace User\UseCase;
+namespace UseCase\User;
 interface UserInterface
 {
     public function __construct(UserInterface $repository);

@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Profile;
+namespace UseCase\Profile;
 
 use Entity\Profile\Profile;
 
