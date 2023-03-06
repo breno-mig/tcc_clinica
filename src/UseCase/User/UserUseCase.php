@@ -2,9 +2,8 @@
 
 namespace UseCase\User;
 
-use Connection\Connection;
-
-class UserUseCase implements UserInterface
+//implements UserInterface
+class UserUseCase
 {
     private UserInterface $repository;
 

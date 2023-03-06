@@ -1,8 +1,9 @@
 <?php
+namespace Controller\User;
 
 interface UserControllerInterface
 {
-    public function get_login($username, $password);
+    public function check_login($username, $password):string;
 
     public function get_user_by_id($id);
 }

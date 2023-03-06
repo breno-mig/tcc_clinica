@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UseCase\\User\\UserUseCaseTest::testSelect":4,"Controller\\User\\UserUseCaseTest::testSelect":4,"test\\TesteUser::testSelect":4,"test\\UserTest::testSelect":4},"times":{"UseCase\\User\\UserUseCaseTest::testSelect":0.009,"Controller\\User\\UserUseCaseTest::testSelect":0.009,"test\\TesteUser::testSelect":0.018,"test\\UserTest::testSelect":0.014}}

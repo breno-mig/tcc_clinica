@@ -1,13 +1,18 @@
 <?php
 
-namespace Connection;
+namespace App\Connection;
 
 use PDO;
 use PDOException;
 
-final class Connection
+class MySqlConnection
 {
     public function __construct()
+    {
+        $this->connect();
+    }
+
+    private function connect():void
     {
         $dsn = 'mysql:dbname=tcc_clinica;host=mysql.localhost;port=3306';
         $username_db="root";
@@ -18,6 +23,8 @@ final class Connection
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
+            die;
         }
     }
+
 }

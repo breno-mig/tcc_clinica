@@ -1,4 +1,5 @@
 <?php
+namespace App\Commun\Helper;
 trait intHelper{
 
     public function clear_int($int):int
