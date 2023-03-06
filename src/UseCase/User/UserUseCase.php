@@ -1,6 +1,6 @@
 <?php
 
-namespace UseCase\User;
+namespace App\UseCase\User;
 
 //implements UserInterface
 class UserUseCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace Entity\Appoiment;
+namespace App\Entity\Appoiment;
 
 use DateTimeInterface;
-use Entity\User\User;
+use App\Entity\User\User;
 
 class Appoiment
 {

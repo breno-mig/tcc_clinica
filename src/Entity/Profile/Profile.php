@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity\Profile;
+namespace App\Entity\Profile;
 
 class Profile
 {

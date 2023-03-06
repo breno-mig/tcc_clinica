@@ -1,8 +1,8 @@
 <?php
 
-namespace UseCase\Profile;
+namespace App\UseCase\Profile;
 
-use Entity\Profile\Profile;
+use App\Entity\Profile\Profile;
 
 class ProfileUseCase implements ProfileInterface
 {

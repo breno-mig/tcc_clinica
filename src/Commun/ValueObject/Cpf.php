@@ -1,6 +1,6 @@
 <?php
 
-namespace Commun\ValueObject;
+namespace App\Commun\ValueObject;
 final class Cpf
 {
     private string $cpf;

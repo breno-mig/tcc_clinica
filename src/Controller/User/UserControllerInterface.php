@@ -1,5 +1,5 @@
 <?php
-namespace Controller\User;
+namespace App\Controller\User;
 
 interface UserControllerInterface
 {

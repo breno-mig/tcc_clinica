@@ -1,12 +1,12 @@
 <?php
 
-namespace Entity\User;
+namespace App\Entity\User;
 
-use Commun\ValueObject\Cpf;
-use Commun\ValueObject\Email;
-use Commun\ValueObject\Password;
+use App\Commun\ValueObject\Cpf;
+use App\Commun\ValueObject\Email;
+use App\Commun\ValueObject\Password;
 use DateTimeInterface;
-use Entity\Profile\Profile;
+use App\Entity\Profile\Profile;
 
 class User
 {

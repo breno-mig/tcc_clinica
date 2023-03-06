@@ -1,6 +1,6 @@
 <?php
 
-namespace UseCase\Appoiment;
+namespace App\UseCase\Appoiment;
 
 class AppoimentUseCase implements AppoimentInterface
 {
