@@ -2,6 +2,8 @@
 
 namespace App\Commun\ValueObject;
 
+use DomainException;
+
 final class Email
 {
     private string $email;
@@ -15,7 +17,7 @@ final class Email
     private function isValid(): void
     {
         if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            throw new \DomainException("E-mail is not valid");
+            throw new DomainException("E-mail is not valid");
         }
     }
 

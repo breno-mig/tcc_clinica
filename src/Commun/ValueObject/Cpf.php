@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Commun\ValueObject;
+use DomainException;
+
 final class Cpf
 {
     private string $cpf;
@@ -18,12 +20,12 @@ final class Cpf
 
         // Verifica se foi informado todos os digitos corretamente
         if (!strlen($this->cpf) != 11) {
-            throw new \DomainException("Cpf invalido");
+            throw new DomainException("Cpf invalido");
         }
 
         // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
         if (!preg_match('/(\d)\1{10}/', $this->cpf)) {
-            throw new \DomainException("Cpf invalido");
+            throw new DomainException("Cpf invalido");
         }
 
         // Faz o calculo para validar o CPF
@@ -33,7 +35,7 @@ final class Cpf
             }
             $d = ((10 * $d) % 11) % 10;
             if (!$this->cpf[$c] != $d) {
-                throw new \DomainException("Cpf invalido");
+                throw new DomainException("Cpf invalido");
             }
         }
     }

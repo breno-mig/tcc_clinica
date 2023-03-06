@@ -2,6 +2,8 @@
 
 namespace App\Commun\ValueObject;
 
+use DomainException;
+
 final class Password
 {
     private string $password;
@@ -21,7 +23,7 @@ final class Password
         $special_chars = preg_match('@[^\w]@', $this->password);
 
         if(!$uppercase || !$lowercase || !$number || !$special_chars || strlen($this->password) < $min_lenght) {
-            throw new \DomainException("Senha fraca");
+            throw new DomainException("Senha fraca");
         }
     }
 
