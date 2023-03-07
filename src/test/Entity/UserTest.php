@@ -48,9 +48,9 @@ class UserTest extends TestCase
     public function testCpf()
     {
         $user = new User();
-        $cpf = new Cpf('479.131.958-35');
+        $cpf = new Cpf('012.345.678-90');
         $user->setDocument($cpf);
-        $this->assertEquals('47913195835',$user->getDocument());
+        $this->assertEquals('01234567890',$user->getDocument());
     }
 
     public function testSex()
