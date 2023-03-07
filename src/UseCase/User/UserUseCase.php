@@ -10,21 +10,6 @@ class UserUseCase
 
     public function __construct(private $repository){}
 
-    public function select($query)
-    {
-        return $this->repository->select($query);
-    }
-
-    public function insert($query)
-    {
-        return $this->repository->insert($query);
-    }
-
-    public function delete($query)
-    {
-        return $this->repository->delete($query);
-    }
-
     public function fill_user($user_to_fill):object
     {
         $user = new User();

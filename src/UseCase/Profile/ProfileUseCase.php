@@ -2,13 +2,13 @@
 
 namespace App\UseCase\Profile;
 
-use App\Entity\Profile\Profile;
-
-class ProfileUseCase implements ProfileInterface
+use App\UseCase\Profile\ProfileUseCaseInterface;
+//implements ProfileUseCaseInterface
+class ProfileUseCase
 {
-    private ProfileInterface $repository;
+    private ProfileUseCaseInterface $repository;
 
-    public function __construct(ProfileInterface $repository)
+    public function __construct(ProfileUseCaseInterface $repository)
     {
         $this->repository = $repository;
     }

@@ -2,13 +2,14 @@
 
 namespace App\Entity\User;
 
+use AllowDynamicProperties;
 use App\Commun\ValueObject\Cpf;
 use App\Commun\ValueObject\Email;
 use App\Commun\ValueObject\Password;
 use DateTimeInterface;
 use App\Entity\Profile\Profile;
 
-class User
+#[AllowDynamicProperties] class User
 {
     private int $id_user;
     private string $username;
@@ -20,21 +21,21 @@ class User
     private Cpf $document;
     private DateTimeInterface $birth_date;
     private DateTimeInterface $registration_date;
-    private int $id_profile;
+    private Profile $id_profile;
 
     /**
-     * @return int
+     * @return Profile
      */
-    public function getIdProfile(): int
+    public function getIdProfile(): Profile
     {
         return $this->id_profile;
     }
 
     /**
-     * @param int $id_profile
+     * @param Profile $id_profile
      * @return User
      */
-    public function setIdProfile(int $id_profile): User
+    public function setIdProfile(Profile $id_profile): User
     {
         $this->id_profile = $id_profile;
         return $this;
