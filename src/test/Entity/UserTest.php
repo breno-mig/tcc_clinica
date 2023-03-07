@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace App\test\Entity;
 
+use App\Commun\ValueObject\Cpf;
+use App\Commun\ValueObject\Email;
+use App\Commun\ValueObject\Password;
 use App\Entity\User\User;
+use DateTime;
+use DateTimeZone;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -20,21 +26,30 @@ class UserTest extends TestCase
     public function testPassword()
     {
         $user = new User();
-        $user->setPassword('Aa1!Aa1!');
-        $this->assertEquals('',$user->getPassword());
+        $password = new Password('Aa1!Aa1!');
+        $user->setPassword($password);
+        $this->assertNull($user->getPassword());
+    }
+
+    public function testPasswordExeption()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $password = new Password('ExDeSenhaFraca123');
     }
 
     public function testEmail()
     {
         $user = new User();
-        $user->setEmail('breno@teste.com');
+        $email = new Email('breno@teste.com');
+        $user->setEmail($email);
         $this->assertEquals('breno@teste.com',$user->getEmail());
     }
 
     public function testCpf()
     {
         $user = new User();
-        $user->setDocument('479.131.958-35');
+        $cpf = new Cpf('479.131.958-35');
+        $user->setDocument($cpf);
         $this->assertEquals('47913195835',$user->getDocument());
     }
 
@@ -62,15 +77,23 @@ class UserTest extends TestCase
     public function testBirthDate()
     {
         $user = new User();
-        $user->setBirthDate(date("Y-m-d H:i:s"));
-        $this->assertEquals(date("Y-m-d H:i:s"),$user->getBirthDate());
+        $date = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+        $today = $date->format('Y-m-d');
+        $user->setBirthDate($date);
+        $user_date = $user->getBirthDate();
+        $formated_date = $user_date->format('Y-m-d');
+        $this->assertEquals($today,$formated_date);
     }
 
     public function testRegistrationDate()
     {
         $user = new User();
-        $user->setRegistrationDate(date());
-        $this->assertEquals(date(),$user->getRegistrationDate());
+        $date = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+        $today = $date->format('Y-m-d');
+        $user->setRegistrationDate($date);
+        $user_date = $user->getRegistrationDate();
+        $formated_date = $user_date->format('Y-m-d');
+        $this->assertEquals($today,$formated_date);
     }
     public function testIdProfile()
     {

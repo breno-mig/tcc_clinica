@@ -12,8 +12,44 @@ class Appoiment
     private int $is_active;
     private DateTimeInterface $appoiment_date;
     private string $observation;
-    private User $id_patient;
-    private User $id_psychologist;
+    private int $id_patient;
+    private int $id_psychologist;
+
+    /**
+     * @return int
+     */
+    public function getIdPatient(): int
+    {
+        return $this->id_patient;
+    }
+
+    /**
+     * @param int $id_patient
+     * @return Appoiment
+     */
+    public function setIdPatient(int $id_patient): Appoiment
+    {
+        $this->id_patient = $id_patient;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPsychologist(): int
+    {
+        return $this->id_psychologist;
+    }
+
+    /**
+     * @param int $id_psychologist
+     * @return Appoiment
+     */
+    public function setIdPsychologist(int $id_psychologist): Appoiment
+    {
+        $this->id_psychologist = $id_psychologist;
+        return $this;
+    }
 
     /**
      * @return int
@@ -102,42 +138,6 @@ class Appoiment
     public function setObservation(string $observation): Appoiment
     {
         $this->observation = $observation;
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getIdPatient(): User
-    {
-        return $this->id_patient;
-    }
-
-    /**
-     * @param User $id_patient
-     * @return Appoiment
-     */
-    public function setIdPatient(User $id_patient): Appoiment
-    {
-        $this->id_patient = $id_patient;
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getIdPsychologist(): User
-    {
-        return $this->id_psychologist;
-    }
-
-    /**
-     * @param User $id_psychologist
-     * @return Appoiment
-     */
-    public function setIdPsychologist(User $id_psychologist): Appoiment
-    {
-        $this->id_psychologist = $id_psychologist;
         return $this;
     }
 

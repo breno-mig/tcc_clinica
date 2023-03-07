@@ -20,7 +20,25 @@ class User
     private Cpf $document;
     private DateTimeInterface $birth_date;
     private DateTimeInterface $registration_date;
-    private Profile $id_profile;
+    private int $id_profile;
+
+    /**
+     * @return int
+     */
+    public function getIdProfile(): int
+    {
+        return $this->id_profile;
+    }
+
+    /**
+     * @param int $id_profile
+     * @return User
+     */
+    public function setIdProfile(int $id_profile): User
+    {
+        $this->id_profile = $id_profile;
+        return $this;
+    }
 
     /**
      * @return int
@@ -59,11 +77,11 @@ class User
     }
 
     /**
-     * @return Password
+     * @return ?Password
      */
-    public function getPassword(): Password
+    public function getPassword(): ?Password
     {
-        return $this->password;
+        return null;
     }
 
     /**
@@ -202,22 +220,5 @@ class User
         return $this;
     }
 
-    /**
-     * @return Profile
-     */
-    public function getIdProfile(): Profile
-    {
-        return $this->id_profile;
-    }
-
-    /**
-     * @param Profile $id_profile
-     * @return User
-     */
-    public function setIdProfile(Profile $id_profile): User
-    {
-        $this->id_profile = $id_profile;
-        return $this;
-    }
 
 }

@@ -21,4 +21,8 @@ final class Email
         }
     }
 
+    public function __toString(): string
+    {
+        return $this->email;
+    }
 }

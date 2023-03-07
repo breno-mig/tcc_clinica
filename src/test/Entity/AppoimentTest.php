@@ -3,6 +3,8 @@
 namespace App\test\Entity;
 
 use App\Entity\Appoiment\Appoiment;
+use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 
 class AppoimentTest extends TestCase
@@ -17,15 +19,25 @@ class AppoimentTest extends TestCase
     public function testBookingDate()
     {
         $appoiment = new Appoiment();
-        $appoiment->setBookingDate(date("Y-m-d H:i:s"));
-        $this->assertEquals(date("Y-m-d H:i:s"),$appoiment->getBookingDate());
+
+        $date = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+        $today = $date->format('Y-m-d');
+        $appoiment->setBookingDate($date);
+        $user_date = $appoiment->getBookingDate();
+        $formated_date = $user_date->format('Y-m-d');
+        $this->assertEquals($today,$formated_date);
     }
 
     public function testAppoimentDate()
     {
         $appoiment = new Appoiment();
-        $appoiment->setAppoimentDate(date("Y-m-d H:i:s"));
-        $this->assertEquals(date("Y-m-d H:i:s"),$appoiment->getAppoimentDate());
+
+        $date = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+        $today = $date->format('Y-m-d');
+        $appoiment->setAppoimentDate($date);
+        $user_date = $appoiment->getAppoimentDate();
+        $formated_date = $user_date->format('Y-m-d');
+        $this->assertEquals($today,$formated_date);
     }
 
     public function testIsActive()
@@ -52,7 +64,7 @@ class AppoimentTest extends TestCase
     public function testIdPsychologist()
     {
         $appoiment = new Appoiment();
-        $appoiment->setIdPsychologist(1);
-        $this->assertEquals(1,$appoiment->getIdPsychologist());
+        $appoiment->setIdPsychologist(2);
+        $this->assertEquals(2,$appoiment->getIdPsychologist());
     }
 }

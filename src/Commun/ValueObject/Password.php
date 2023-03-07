@@ -2,7 +2,8 @@
 
 namespace App\Commun\ValueObject;
 
-use DomainException;
+
+use InvalidArgumentException;
 
 final class Password
 {
@@ -23,8 +24,20 @@ final class Password
         $special_chars = preg_match('@[^\w]@', $this->password);
 
         if(!$uppercase || !$lowercase || !$number || !$special_chars || strlen($this->password) < $min_lenght) {
-            throw new DomainException("Senha fraca");
+            throw new InvalidArgumentException("Senha fraca");
         }
+
+        $options = [
+            'cost' => 13,
+        ];
+
+        $this->password = password_hash($this->password, PASSWORD_BCRYPT, $options);
+    }
+
+    public function __toString(): string
+    {
+
+        return $this->password;
     }
 
 }
