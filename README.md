@@ -1,7 +1,7 @@
 # tcc_clinica
-Meu TCC da faculdade
+ Projeto que estou desenvolvendo para meu TCC
+ 
+public_html: localhost:80 & localhost:443;
+PhpMyAdmin: localhost:8080;
 
-Na pasta ADM, estão presentes os arquivos da parte administrativa do site, onde atualmente consta com as operações de CRUD dos usuarios somente
-Na pasta BD, está presente a base de dados que estou utilizando nesse projeto
-
-O projeto ainda esta em desenvolvimento, estou trabalhando em uma nova versão em laravel e estudando a viabilidade do banco de dados ser em PostgreSQL
+registros do banco de dados para teste: tcc_clinica/db/registros/tcc_clinica.sql

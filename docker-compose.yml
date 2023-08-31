@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    depends_on:
+      - db-mysql
+    volumes:
+      - .:/var/www/tcc_clinica
+    extra_hosts:
+      - "clinica.localhost:127.0.0.1"
+    hostname: clinica.localhost
+    domainname: localhost
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - db-mysql
+  db-mysql:
+    container_name: db-mysql
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    restart: always
+    hostname: mysql.localhost
+    volumes:
+      - ../dbs/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tcc_clinica
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    container_name: phpmyadmin
+    build:
+      context: ./docker/phpmyadmin
+      dockerfile: Dockerfile
+    depends_on:
+      - db-mysql
+      - php-apache-environment
+    restart: always
+    hostname: phpmyadmin.localhost
+    domainname: localhost
+    environment:
+      PMA_HOST: 172.28.0.2
+      PMA_PORT: "3306"
+      PMA_ARBITRARY: 1
+    ports:
+      - 8080:80
+    links:
+      - db-mysql
+      - php-apache-environment
