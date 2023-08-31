@@ -1,0 +1,1 @@
+Senha de todos os usuários: Senha2023!@
